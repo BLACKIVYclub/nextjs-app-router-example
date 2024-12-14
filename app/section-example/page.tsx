@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import { builder } from "@builder.io/sdk";
 import Head from "next/head";
 import { RenderBuilderContent } from "@/components/builder";
@@ -36,7 +36,7 @@ export default async function SectionExample(props: PageProps) {
       >
         Non builder content
       </div>
-      {/* Render the Builder page */}
+      
       <RenderBuilderContent content={content} model={model} />
       <div
         style={{
@@ -52,3 +52,4 @@ export default async function SectionExample(props: PageProps) {
     </>
   );
 }
+*/

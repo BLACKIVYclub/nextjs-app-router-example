@@ -3,33 +3,52 @@ import { builder } from "@builder.io/sdk";
 import Head from "next/head";
 import { RenderBuilderContent } from "@/components/builder";
 
-// Replace with your Public API Key
-builder.init("YJIGb4i01jvw0SRdL5Bt");
+// Initialize Builder.io with your Public API Key
+builder.init("706c4001d29248a197cd4cb1e707e1f2");
 
+// Define the structure of `params`
 interface PageProps {
   params: {
-    page: string[];
+    page?: string[];
   };
 }
 
-export default async function Page(props: PageProps) {
-  const model = "page";
-  const content = await builder
-    .get("page", {
-      userAttributes: {
-        urlPath: "/" + (props?.params?.page?.join("/") || ""),
-      },
-      prerender: false,
-    })
-    .toPromise();
+// Function to fetch content from Builder.io
+async function fetchContent(params: PageProps["params"]) {
+  const urlPath = "/" + (params?.page?.join("/") || "");
+
+  try {
+    const content = await builder
+      .get("page", {
+        userAttributes: {
+          urlPath,
+        },
+        prerender: false,
+      })
+      .toPromise();
+
+    return content;
+  } catch (error) {
+    console.error("Error fetching content from Builder.io:", error);
+    return null;
+  }
+}
+
+// Main page component
+const Page = async ({ params }: PageProps) => {
+  console.log("Params:", params);
+
+  const content = await fetchContent(params);
 
   return (
     <>
       <Head>
-        <title>{content?.data.title}</title>
+        <title>{content?.data?.title || "Default Title"}</title>
       </Head>
-      {/* Render the Builder page */}
-      <RenderBuilderContent content={content} model={model} />
+      {/* Render the Builder content */}
+      <RenderBuilderContent content={content} model="page" />
     </>
   );
-}
+};
+
+export default Page;
