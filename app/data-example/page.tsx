@@ -2,7 +2,7 @@ import React from "react";
 import { builder } from "@builder.io/sdk";
 
 // Replace with your Public API Key
-builder.init("YJIGb4i01jvw0SRdL5Bt");
+builder.init("706c4001d29248a197cd4cb1e707e1f2");
 
 export default async function DataExample() {
   const menus = await builder.getAll("nav-menus", {
